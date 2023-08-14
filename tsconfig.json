@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "noEmit": false,
+    "sourceMap": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "outDir": "src/dist/public",
+    "noEmitHelpers": true,
+  },
+  "exclude": [
+    "node_modules"
+  ],
+
+
+  "include": [
+    "src"
+  ]
+}
+

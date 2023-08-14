@@ -1,0 +1,465 @@
+
+@mixin header-select{
+    color: lightslategray;
+    position: relative;
+    &:hover{
+      color: black;
+    }
+}
+
+@mixin note-buttons{
+  color: lightslategray;
+  cursor: pointer;
+  font-size: 7rem;
+  margin-left: 1rem;
+  gap: 1rem;
+}
+
+@mixin note-category{
+  display: none;
+  width: 10%;
+  height: 12%;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 4px rgba(1,1,1,0) solid;
+
+  justify-content: center;
+  align-items: center;
+}
+@mixin serve-note-category{
+  @include note-category();
+  display: flex;
+  width: 10%;
+  height: 29%;
+  border: 4px mediumseagreen solid;
+}
+
+
+html,body,head{
+  height: 100%;
+  background: #FFFFFF;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+  box-sizing: border-box;
+}
+
+.header{
+  display: flex;
+  height: 8%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  gap: 4rem;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 1;
+
+
+  .header-select{
+    margin-left: 4rem;
+    cursor: pointer;
+
+    &-make-note{
+      @include header-select
+    }
+    &-show-notes{
+      @include header-select
+    }
+  }
+}
+.make-note-tab{
+  clip-path: circle(0);
+  margin-left: 1rem;
+  margin-top: 4rem;
+  z-index: 3;
+  padding: 1rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 32%;
+  height: 42%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  gap: 0.3rem;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  p{
+    position: relative;
+    height: 1rem;
+  }
+
+  &-types{
+    display: flex;
+    top: 32%;
+    width: 100%;
+    height: 70%;
+    gap: 4%;
+
+    &-type{
+      display: none;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      width: 4rem;
+      height: 1.7rem;
+      background: lightseagreen;
+      &:focus{
+        background: papayawhip;
+      }
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  &-button{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 80px;
+    height: 36px;
+    background: springgreen;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  &-input{
+    position: relative;
+    margin-top:-1rem;
+    height: 4rem;
+    width: 100%;
+    font-size: 21px;
+    border-radius: 8px;
+    border: 1px solid black;
+  }
+  &-title{
+    position: relative;
+    height: 1.8rem;
+    width: 100%;
+    border-bottom: 1px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-exit{
+      position: absolute;
+      width: 12%;
+      height: 100%;
+      right: 0;
+      top: 0;
+      border-radius: 7px;
+
+      cursor: pointer;
+    }
+  }
+
+  &-description{
+    height: 90%;
+  }
+}
+.show-notes-page{
+  background-color: white;
+  position: absolute;
+  top: 9%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1%;
+  padding: 1rem;
+
+  &-item{
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 17%;
+
+  &-note {
+    position: relative;
+    width: 76%;
+    height: 100%;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 7px;
+    border-radius: 14px;
+    display: flex;
+
+
+
+    &-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      height: 100%;
+      width: 44%;
+      font-size: 36px;
+      background: beige;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    &-description{
+      background: white;
+      word-break: break-all;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 14px;
+
+
+      p{
+        margin: -0.01rem;
+      }
+    }
+
+  }
+    &-buttons{
+      width: 24%;
+      display: flex;
+      gap: 2rem;
+
+      &-delete{
+        @include note-buttons;
+
+        &:hover{
+          color: red;
+        }
+      }
+      &-done{
+        @include note-buttons;
+
+        &:hover{
+          color: green;
+        }
+      }
+    }
+  }
+
+
+}
+
+.notes{
+
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 90%;
+  top: 8%;
+  overflow: hidden;
+
+
+  &-title{
+    position: absolute;
+    left: -3%;
+    z-index: 0;
+    width: 100%;
+    height: 9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+  }
+
+  &-categories-serves{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    margin-top: 4%;
+
+    &-completed-categories {
+    @include serve-note-category;
+    &-symbol{
+      margin-left: -1rem;
+      font-size: 2rem;
+    }
+
+    &:hover &-symbol{
+      transform-origin: center;
+      color: green;
+    }
+  }
+
+    &-add-category{
+      @include serve-note-category;
+      z-index: 1;
+      margin-left:3%;
+
+      &-symbol{
+        margin-left: -1rem;
+        font-size: 2rem;
+        color: black;
+      }
+
+      &:hover &-symbol{
+        animation: rotate 0.24s linear;
+        transform-origin: center;
+        color: green;
+      }
+    }
+
+    &-delete-category{
+      @include serve-note-category;
+      display: flex;
+      position: center;
+      &-symbol{
+        margin-left: -1rem;
+        font-size: 2rem;
+      }
+      &-symbol-close{
+        display: none;
+      }
+      p{
+        margin-left: 1rem;
+      }
+
+      &:hover &-symbol{
+        color: red;
+      }
+      &:hover{
+        border-color: red;
+      }
+
+    }
+  }
+
+  &-categories{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: 1rem;
+    margin-left: 2.7%;
+
+
+
+    &-category{
+      @include note-category;
+
+
+      &:hover{
+        border: 4px mediumseagreen solid;
+      }
+
+    }
+
+
+  }
+  .add-category-span{
+           z-index: 0;
+           display: none;
+           position: absolute;
+           width: 13.1%;
+           height: 7.2%;
+           margin-top: 0.17%;
+           background-color: white;
+           border-radius: 14px;
+           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+           &-input{
+
+             border-radius: 14px;
+             width: 110%;
+             height: 90%;
+             margin-top: -1%;
+             margin-left: -1.6%;
+
+
+           }
+
+           &-save{
+             font-size: 2rem;
+           }
+         }
+
+}
+
+@keyframes rotate {
+  from {transform: rotate(0deg)}
+  to {transform: rotate(90deg)}
+}
+
+@keyframes add-category-span-appear {
+  0%{
+    margin-left: 3%;
+  }
+  100%{
+    margin-left: 12.7%;
+  }
+}
+@keyframes add-category-span-disappear {
+  0%{
+    margin-left: 12.7%;
+  }
+  100%{
+    margin-left: 3%;
+  }
+}
+
+@media (max-width: 1200px){
+  html{
+    max-width: 97px;
+  }
+}
+
+@media (max-width: 992px) {
+  html{
+    max-width: 10rem;
+    font-size: 0.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  *{
+    max-width: 30rem;
+  }
+}
