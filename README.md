@@ -1,2 +1,3 @@
-﻿# First you need to run tsc
+First you need to run
+ # tsc
 
