@@ -16,19 +16,6 @@ export function mainScript() {
             else{
                 makeNoteTab.style.clipPath = 'circle(0)'
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
         })
 
         let buttonShowNotes: Element = document.getElementsByClassName('header-select')[1]
