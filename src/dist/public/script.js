@@ -19,7 +19,6 @@ main()
     const noteElement = document.getElementsByClassName('show-notes-page-item')[0];
     if (noteElement) {
         drawNotesScript()
-        console.log(890)
 }
 
 
