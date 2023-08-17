@@ -26,6 +26,6 @@
 
   "scripts": {
     "build": "webpack --config webpack.config.mjs",
-     "launch": "node ./src/router.js "
+     "start": "node ./src/router.js "
   }
 }
