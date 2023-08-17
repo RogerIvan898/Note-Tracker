@@ -1,2 +1,2 @@
-﻿# Note_Tracker
+﻿# First you need to run tsc
 
