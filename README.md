@@ -6,6 +6,5 @@ Run server
 ```
 npm run serve
 ```
- And go to
- 
+And go to
 # http://localhost:3000/
