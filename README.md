@@ -1,6 +1,11 @@
 First you need to run
- # tsc
+```
+  tsc
+```
 Run server 
- # npm run serve
+```
+ npm run serve
+```
  And go to
+ 
 # http://localhost:3000/
