@@ -12,11 +12,11 @@ const port = 3000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
-const distPath = path.join(__dirname, 'dist')
-
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'ejs'))
-app.use('/public',express.static(path.join(distPath,'public')))
+app.use('/dist',express.static(path.join(__dirname,'..','dist')))
+
+app.use('/public',express.static(path.join(__dirname,'public')))
 
 
 app.get('/',((req, res) => {
@@ -45,5 +45,5 @@ app.post('/notes',(req,res)=>{
 })
 
 app.listen(port,()=>{
-    console.log('Server is running')
+    console.log('Localhost is running ')
 })
