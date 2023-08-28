@@ -1,11 +1,11 @@
-import {noteCategories,NoteList}from "./index"
+import {noteCategoriesInMakeNoteTab,NoteList}from "./index"
 
-export type Category = {
+export type NotesCategory = {
     title:string,
     noteList: NoteList
 }
 export function noteController() {
-    let categories: Category[] = []
+    let categories: NotesCategory[] = []
 
     if(!localStorage.getItem('Categories')) {
         categories.push({title: 'all', noteList: new NoteList()})
@@ -15,10 +15,11 @@ export function noteController() {
         localStorage.setItem('Categories', JSON.stringify(categories))
     }
 
-    let categoriesLocalStorage:Category[] = JSON.parse(localStorage.getItem('Categories'))
+
+    let categoriesLocalStorage:NotesCategory[] = JSON.parse(localStorage.getItem('Categories'))
     console.log(localStorage.getItem('Categories'))
     categoriesLocalStorage.forEach(category=>{
-        noteCategories.push({type:category.title,current:false})
+        noteCategoriesInMakeNoteTab.push({category:category.title,current:false})
     })
 
     if(!localStorage.getItem('Completed')){

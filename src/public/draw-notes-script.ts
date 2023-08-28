@@ -1,33 +1,28 @@
-import {Note, NoteList} from "./index"
+import {NoteList} from "./index"
 import {parseLocalStorageCategoryInNoteList} from "./parser-localStorage"
 import {LocalStorage} from "./storage"
+import {NotesCategory} from "./notes-controller"
+
 export function drawNotesScript() {
 
-    let url:String = window.location.href
+    const url:string = window.location.href
     const parts:string[] = url.split('/')
     const urlCategory:string = parts[parts.indexOf('notes')+1]
 
-
-    let categories = JSON.parse(localStorage.getItem('Categories'))
-    let currentCategory
-
-    let currentCategoryNoteList:NoteList
-
-
+    const categories:NotesCategory[] = LocalStorage.getActiveNotesCategories()
+    let currentCategory:NotesCategory
 
     if(urlCategory === 'completed'){
         currentCategory = JSON.parse(localStorage.getItem('Completed'))
         console.log(currentCategory)
-        currentCategoryNoteList = parseLocalStorageCategoryInNoteList(currentCategory).noteList
     }
     else {
-        currentCategory = categories.find(currentCategory => currentCategory.title === urlCategory)
-        currentCategory = parseLocalStorageCategoryInNoteList(currentCategory)
-        currentCategoryNoteList = currentCategory.noteList
+        currentCategory = categories.find(category => category.title === urlCategory)
     }
 
     let itemElement: HTMLElement = <HTMLElement>document.getElementsByClassName('show-notes-page-item')[0]
-    for (let note of currentCategoryNoteList.getNotes()) {
+
+    for (let note of currentCategory.noteList.getNotes()) {
         let newItemElement: HTMLElement = <HTMLElement>itemElement.cloneNode(true)
         newItemElement.style.display = 'flex'
 
@@ -46,9 +41,8 @@ export function drawNotesScript() {
         if(urlCategory === 'completed'){
             buttonCompleteNote.style.display = 'none'
         }
+
         note.setHTMLElement(newItemElement)
-        console.log(note)
-        localStorage.setItem('all', JSON.stringify(currentCategoryNoteList.getNotes()))
 
         buttonDeleteNote.addEventListener('click', () => {
 

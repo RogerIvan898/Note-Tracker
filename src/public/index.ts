@@ -1,140 +1,28 @@
 
-import {LocalStorage} from "./storage"
-
 export function mainScript() {
 
+    let buttonShowNotes: Element = document.getElementsByClassName('header-select')[1]
+    buttonShowNotes.addEventListener('click', () => {
+        window.location.href = 'http://localhost:3000/notes'
+    })
 
-        let makeNoteTabActive = false
-        let buttonMakeNote: Element = document.getElementsByClassName('header-select')[0]
-        buttonMakeNote.addEventListener('click', () => {
-            makeNoteTabActive = !makeNoteTabActive
-            let makeNoteTab: HTMLElement = <HTMLElement>document.getElementsByClassName('make-note-tab')[0]
-
-            if(makeNoteTabActive) {
-                makeNoteTab.style.clipPath = 'circle(100%)'
-            }
-            else{
-                makeNoteTab.style.clipPath = 'circle(0)'
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    let buttonNoteType: Element = document.getElementsByClassName('notes-types-type')[0]
+    if (buttonNoteType) {
+        buttonNoteType.addEventListener('click', () => {
+            window.location.href = 'http://localhost:3000/notes/all'
         })
-
-        let buttonShowNotes: Element = document.getElementsByClassName('header-select')[1]
-        buttonShowNotes.addEventListener('click', () => {
-            window.location.href = 'http://localhost:3000/notes'
-        })
-
-        let buttonNoteTabExit: Element = document.getElementsByClassName('make-note-tab-title-exit')[0]
-        buttonNoteTabExit.addEventListener('click', () => {
-            let makeNoteTab: HTMLElement = <HTMLElement>document.getElementsByClassName('make-note-tab')[0]
-            makeNoteTab.style.clipPath = 'circle(0)'
-        })
-
-        let buttonNoteType: Element = document.getElementsByClassName('notes-types-type')[0]
-        if (buttonNoteType) {
-            buttonNoteType.addEventListener('click', () => {
-                window.location.href = 'http://localhost:3000/notes/all'
-            })
-        }
-
-        let buttonSaveNote: Element = document.getElementsByClassName('make-note-tab-button')[0]
-        buttonSaveNote.addEventListener('click', () => {
-            let inputTitle: HTMLInputElement = <HTMLInputElement>document.
-            getElementsByClassName('make-note-tab-input')[0]
-            let textAreaDescription: HTMLTextAreaElement = <HTMLTextAreaElement>document.
-            getElementsByClassName('make-note-tab-description')[0]
-            let makeNoteTab:HTMLElement = <HTMLElement> document.getElementsByClassName('make-note-tab')[0]
-            if (inputTitle.value) {
-                let chosenCategories: string[] = []
-
-                for (let noteType of noteCategories) {
-                    if (noteType.current) {
-                        chosenCategories.push(noteType.type)
-                    }
-                }
-
-                chosenCategories.push(noteCategories.find(item => item.type === 'all').type)
-                    let note = new Note(inputTitle.value,textAreaDescription.value,chosenCategories,1)
-                    LocalStorage.addActiveNote(note,chosenCategories)
-                inputTitle.value = ''
-                textAreaDescription.value = ''
-                makeNoteTab.style.clipPath='circle(0)'
-
-            }
-        })
-
-        let buttonNoteTabTypeAll: HTMLElement = <HTMLElement>document.
-        getElementsByClassName('make-note-tab-types-type')[0]
-        let buttonsNoteTabTypes: HTMLElement[] = [buttonNoteTabTypeAll]
-
-        function drawTypesInMakeNoteTab() {
-            for (let noteCategory of noteCategories) {
-                if (noteCategory.type !== 'all') {
-                    let buttonNoteTypeElement: HTMLElement = <HTMLElement>buttonNoteTabTypeAll.cloneNode(true)
-                    buttonNoteTypeElement.style.display = 'flex'
-                    buttonNoteTypeElement.children[0].textContent = noteCategory.type
-                    buttonNoteTabTypeAll.after(buttonNoteTypeElement)
-                    buttonsNoteTabTypes.push(buttonNoteTypeElement)
-                }
-            }
-            for (let buttonNoteTypeElement of buttonsNoteTabTypes) {
-                buttonNoteTypeElement.addEventListener('click', () => {
-                    let type = noteCategories.find(item => item.type === buttonNoteTypeElement.children[0].textContent)
-                    type.current = !type.current
-                    if(type.current){
-                        buttonNoteTypeElement.style.background = 'green'
-                    }
-                    else {
-                        buttonNoteTypeElement.style.background = 'lightseagreen'
-                    }
-                })
-
-
-            }
-            pageIsLoaded = true
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-        if (!pageIsLoaded) {
-            drawTypesInMakeNoteTab()
-        }
     }
-type NoteType = {
-    type: string,
+
+}
+type NoteCategoryInMakeNoteTab = {
+    category: string,
     current: boolean
 }
 
-let pageIsLoaded = false
 
-export const noteCategories: NoteType[] = []
-
-
+export const noteCategoriesInMakeNoteTab: NoteCategoryInMakeNoteTab[] = []
 
 export class Note{
-
 
 
     private title:string

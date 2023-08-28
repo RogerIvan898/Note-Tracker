@@ -2,11 +2,15 @@ import {noteController} from "./notes-controller"
 import {mainScript} from "./index"
 import {noteCategoriesPage} from "./notes-category"
 import {drawNotesScript} from "./draw-notes-script"
+import {selectMakeNote} from "./select-make-note"
+import {makeNoteTab} from "./make-note-tab"
 
 
 async function main() {
     noteController()
    await mainScript()
+    selectMakeNote()
+    makeNoteTab()
 }
 
 main()

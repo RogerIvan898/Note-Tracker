@@ -1,6 +1,18 @@
 import {LocalStorage} from "./storage"
 export function noteCategoriesPage(){
 
+
+
+
+
+
+
+
+
+
+
+
+
          let deleteCategories = false
          const noteCategoryElements: HTMLElement[] = []
          document.addEventListener('DOMContentLoaded', () => {
@@ -128,17 +140,17 @@ export function noteCategoriesPage(){
 
 
              for (let noteCategory of reversedCategories) {
-                     let nextNoteCategoryElement: HTMLElement = <HTMLElement>noteCategoryElement.cloneNode(true)
+                 let nextNoteCategoryElement: HTMLElement = <HTMLElement>noteCategoryElement.cloneNode(true)
 
-                    nextNoteCategoryElement.style.display = 'flex'
-                     nextNoteCategoryElement.children[0].textContent = noteCategory.title
-                     noteCategoryElement.after(nextNoteCategoryElement)
-                     noteCategoryElements.push(nextNoteCategoryElement)
+                 nextNoteCategoryElement.style.display = 'flex'
+                 nextNoteCategoryElement.children[0].textContent = noteCategory.title
+                 noteCategoryElement.after(nextNoteCategoryElement)
+                 noteCategoryElements.push(nextNoteCategoryElement)
 
 
-                     nextNoteCategoryElement.addEventListener('click',()=>{
-                         if(!deleteCategories) {
-                             window.location.href = `http://localhost:3000/notes/${noteCategory.title}`
+                 nextNoteCategoryElement.addEventListener('click',()=>{
+                     if(!deleteCategories) {
+                         window.location.href = `http://localhost:3000/notes/${noteCategory.title}`
                          }
                      })
              }

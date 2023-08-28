@@ -1,41 +1,23 @@
 import {parseLocalStorageCategoryInNoteList} from "./parser-localStorage"
-import {Category} from "./notes-controller"
+import {NotesCategory} from "./notes-controller"
 import {Note, NoteList} from "./index"
 
-
 export class LocalStorage{
-    static getItem(item:string){
-        let itemFromLocalStorage:Category[] = JSON.parse(localStorage.getItem(item))
-        let parsedItemFromLocalStorage:Category[] = []
 
-        if(itemFromLocalStorage){
-            itemFromLocalStorage.forEach(category => {
-                parsedItemFromLocalStorage.push(parseLocalStorageCategoryInNoteList(category))
-            })
-
-            return parsedItemFromLocalStorage
-        }
-
-    }
-
-    static getCategories(){
-        return this.getItem('Categories')
-    }
     static addCompletedNote(note:Note){
-        let localStorageCompletedNotes = JSON.parse(localStorage.getItem('Completed'))
-        let localStorageCategoryInNoteListParsed = parseLocalStorageCategoryInNoteList(localStorageCompletedNotes)
-
-        localStorageCategoryInNoteListParsed.noteList.add(note)
+        let localStorageCompletedNotes:NotesCategory = this.getCompletedNotes()
+        localStorageCompletedNotes.noteList.add(note)
         this.deleteActiveNote(note)
-        localStorage.setItem('Completed',JSON.stringify(localStorageCategoryInNoteListParsed))
+        localStorage.setItem('Completed',JSON.stringify(localStorageCompletedNotes))
     }
 
     static addActiveNote(note:Note,categories:string[]){
-        let localStorageCategories:Category[] = JSON.parse(localStorage.getItem('Categories'))
-        let categoriesForAdd:Category[] = []
+        const activeNotesCategories = this.getActiveNotesCategories()
+        let categoriesForAdd:NotesCategory[] = []
+
         categories.forEach(category=>{
-            categoriesForAdd.push(parseLocalStorageCategoryInNoteList(localStorageCategories.
-            find(item=> item.title === category)))
+            categoriesForAdd.push(activeNotesCategories.
+            find(item=> item.title === category))
         })
 
         if(categoriesForAdd.length){
@@ -44,10 +26,8 @@ export class LocalStorage{
             })
         }
 
-        localStorage.setItem('Categories',JSON.stringify(localStorageCategories))
+        localStorage.setItem('Categories',JSON.stringify(activeNotesCategories))
     }
-
-
 
     static deleteActiveNote(note:Note){
             let localStorageCategories = JSON.parse(localStorage.getItem('Categories'))
@@ -72,28 +52,58 @@ export class LocalStorage{
     }
 
     static deleteCompletedNote(note:Note){
-        let completedNotes = parseLocalStorageCategoryInNoteList(JSON.parse(localStorage.getItem('Completed')))
+        let completedNotes:NotesCategory = this.getCompletedNotes()
         completedNotes.noteList.delete(note)
 
         localStorage.setItem('Completed',JSON.stringify(completedNotes))
     }
 
     static addCategory(categoryTitle:string){
-        const localStorageCategories:Category[] = JSON.parse(localStorage.getItem('Categories'))
+        const localStorageCategories:NotesCategory[] = JSON.parse(localStorage.getItem('Categories'))
 
-        let category:Category = {title:categoryTitle,noteList: new NoteList()}
+        let category:NotesCategory = {title:categoryTitle,noteList: new NoteList()}
         localStorageCategories.push(category)
         localStorage.setItem('Categories',JSON.stringify(localStorageCategories))
     }
 
     static deleteCategory(categoryTitle:string){
-        const localStorageCategories:Category[] = JSON.parse(localStorage.getItem('Categories'))
+        const localStorageCategories:NotesCategory[] = JSON.parse(localStorage.getItem('Categories'))
 
         localStorageCategories.splice(localStorageCategories.indexOf(localStorageCategories.
         find(category => category.title === categoryTitle)),1)
 
         localStorage.setItem('Categories',JSON.stringify(localStorageCategories))
     }
+
+    static getCompletedNotes():NotesCategory{
+        const completedNotesObj = JSON.parse(localStorage.getItem('Completed'))
+        const noteList: NoteList = new NoteList()
+
+        completedNotesObj.noteList.notes.forEach(note =>{
+            const newNote:Note = new Note(note.title,note.description,note.category,note.number)
+            noteList.add(newNote)
+        })
+        completedNotesObj.noteList = noteList
+        return <NotesCategory> completedNotesObj
+    }
+
+    static getActiveNotesCategories():NotesCategory[]{
+        const activeNotesCategoriesObj = JSON.parse(localStorage.getItem('Categories'))
+
+        activeNotesCategoriesObj.forEach(category =>{
+            const noteList:NoteList = new NoteList()
+
+            category.noteList.notes.forEach(note=>{
+                const newNote:Note = new Note(note.title,note.description,note.category,note.number)
+                noteList.add(newNote)
+            })
+            category.noteList = noteList
+        })
+
+        return <NotesCategory[]> activeNotesCategoriesObj
+
+    }
+
 }
 
 
