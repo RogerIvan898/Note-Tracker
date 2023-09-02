@@ -1,6 +1,6 @@
 First you need to run
 ```
-tsc
+npm install
 ```
 Run server 
 ```
