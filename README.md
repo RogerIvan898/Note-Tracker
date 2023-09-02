@@ -1,10 +1,10 @@
-First you need to run
+## Project setup
 ```
 npm install
 ```
-Run server 
+## Run server 
 ```
 npm run serve
 ```
- And go to
+## And go to 
 # http://localhost:3000/
